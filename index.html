@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Payu-node by baliganikhil</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Payu-node</h1>
+          <h2>payu-node is a simple wrapper to use PayU APIs from within Node JS.</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/baliganikhil/payu-node/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/baliganikhil/payu-node/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/baliganikhil/payu-node" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h2>
+<a name="payu-node" class="anchor" href="#payu-node"><span class="octicon octicon-link"></span></a>payu-node</h2>
+
+<p>payu-node is a simple wrapper to use PayU APIs from within Node JS.</p>
+
+<h3>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h3>
+
+<pre><code>npm install payu
+</code></pre>
+
+<h3>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h3>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">PayU</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'payu'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">payu</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PayU</span><span class="p">(</span><span class="nx">merchant_id</span><span class="p">,</span> <span class="nx">salt</span><span class="p">,</span> <span class="nx">payu_url</span><span class="p">);</span>
+</pre></div>
+
+<p>...where <code>merchant_id</code> and <code>salt</code> are unique to you.
+<code>payu_url</code> is the url to which you want to make your calls to - production or test. If not provided, it defaults to test url with json output. The hash is created internally.</p>
+
+<h3>
+<a name="api-call-format" class="anchor" href="#api-call-format"><span class="octicon octicon-link"></span></a>API call format</h3>
+
+<p>Every API is of the following format:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">payu</span><span class="p">.</span><span class="nx">api_name</span><span class="p">(</span><span class="nx">param1</span><span class="p">[,</span> <span class="nx">param2</span><span class="p">...],</span> <span class="nx">callback</span><span class="p">);</span>
+</pre></div>
+
+<p>where callback is a function with two arguments - error and response. Error has error in the http call and not PayU API errors. The response is provided as is.</p>
+
+<h4>
+<a name="example" class="anchor" href="#example"><span class="octicon octicon-link"></span></a>Example:</h4>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">txn_id</span> <span class="o">=</span> <span class="s1">'12345'</span><span class="p">;</span>
+<span class="nx">payu</span><span class="p">.</span><span class="nx">verify_payment</span><span class="p">(</span><span class="nx">txn_id</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+
+<h3>
+<a name="supported-apis" class="anchor" href="#supported-apis"><span class="octicon octicon-link"></span></a>Supported APIs</h3>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">verify_payment</span><span class="p">(</span><span class="nx">txn_id</span><span class="p">,</span> <span class="nx">cb</span><span class="p">);</span>
+<span class="nx">check_payment</span><span class="p">(</span><span class="nx">mihpayid</span><span class="p">,</span> <span class="nx">cb</span><span class="p">);</span>
+<span class="nx">cancel_refund_transaction</span><span class="p">(</span><span class="nx">mihpayid</span><span class="p">,</span> <span class="nx">token_id</span><span class="p">,</span> <span class="nx">refund_amt</span><span class="p">,</span> <span class="nx">cb</span><span class="p">);</span>
+<span class="nx">check_action_status</span><span class="p">(</span><span class="nx">request_id</span><span class="p">,</span> <span class="nx">cb</span><span class="p">);</span>
+<span class="nx">capture_transaction</span><span class="p">(</span><span class="nx">mihpayid</span><span class="p">,</span> <span class="nx">token_id</span><span class="p">,</span> <span class="nx">cb</span><span class="p">);</span>
+<span class="nx">update_requests</span><span class="p">(</span><span class="nx">mihpayid</span><span class="p">,</span> <span class="nx">request_id</span><span class="p">,</span> <span class="nx">bank_ref_id</span><span class="p">,</span> <span class="nx">amt</span><span class="p">,</span> <span class="nx">action</span><span class="p">,</span> <span class="nx">status</span><span class="p">,</span> <span class="nx">cb</span><span class="p">);</span>
+<span class="nx">cod_verify</span><span class="p">(</span><span class="nx">mihpayid</span><span class="p">,</span> <span class="nx">token_id</span><span class="p">,</span> <span class="nx">amt</span><span class="p">,</span> <span class="nx">cb</span><span class="p">);</span>
+<span class="nx">cod_cancel</span><span class="p">(</span><span class="nx">mihpayid</span><span class="p">,</span> <span class="nx">token_id</span><span class="p">,</span> <span class="nx">amt</span><span class="p">,</span> <span class="nx">cb</span><span class="p">);</span>
+<span class="nx">cod_settled</span><span class="p">(</span><span class="nx">mihpayid</span><span class="p">,</span> <span class="nx">token_id</span><span class="p">,</span> <span class="nx">amt</span><span class="p">,</span> <span class="nx">cb</span><span class="p">);</span>
+<span class="nx">get_TDR</span><span class="p">(</span><span class="nx">mihpayid</span><span class="p">,</span> <span class="nx">cb</span><span class="p">);</span>
+<span class="nx">udf_update</span><span class="p">(</span><span class="nx">txn_id</span><span class="p">,</span> <span class="nx">udf1</span><span class="p">,</span> <span class="nx">udf2</span><span class="p">,</span> <span class="nx">udf3</span><span class="p">,</span> <span class="nx">udf4</span><span class="p">,</span> <span class="nx">udf5</span><span class="p">,</span> <span class="nx">cb</span><span class="p">);</span>
+<span class="nx">getNetbankingStatus</span><span class="p">(</span><span class="nx">ibibo_code</span><span class="p">,</span> <span class="nx">cb</span><span class="p">);</span>
+<span class="nx">getIssuingBankStatus</span><span class="p">(</span><span class="nx">bin</span><span class="p">,</span> <span class="nx">cb</span><span class="p">);</span>
+<span class="nx">get_Transaction_Details</span><span class="p">(</span><span class="nx">start_date</span><span class="p">,</span> <span class="nx">end_date</span><span class="p">,</span> <span class="nx">cb</span><span class="p">);</span>
+<span class="nx">get_transaction_info</span><span class="p">(</span><span class="nx">start_time</span><span class="p">,</span> <span class="nx">end_time</span><span class="p">,</span> <span class="nx">cb</span><span class="p">);</span>
+<span class="nx">check_isDomestic</span><span class="p">(</span><span class="nx">bin</span><span class="p">,</span> <span class="nx">cb</span><span class="p">);</span>
+</pre></div>
+
+<h3>
+<a name="bugs-and-issues" class="anchor" href="#bugs-and-issues"><span class="octicon octicon-link"></span></a>Bugs and Issues</h3>
+
+<p>Please report and bugs and issues that you face. If you can fix any, please go ahead and fix and send me a pull request. Other API support will come after some time.</p>
+
+<h4>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h4>
+
+<p>MIT</p>
+        </section>
+
+        <footer>
+          Payu-node is maintained by <a href="https://github.com/baliganikhil">baliganikhil</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
