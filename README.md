@@ -1,4 +1,4 @@
-shouldyu-node
+payu-node
 ----
 
 payu-node is a simple wrapper to use PayU APIs from within Node JS.
