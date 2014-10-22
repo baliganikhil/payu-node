@@ -1,6 +1,6 @@
 {
   "name": "payu",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "payu is a simple wrapper to use PayU APIs from within Node JS",
   "main": "payu.js",
   "scripts": {
@@ -16,6 +16,9 @@
     "gateway",
     "node"
   ],
+  "dependencies": {
+    "request": "*"
+  },
   "author": "Nikhil Baliga <baliganikhil@gmail.com>",
   "license": "MIT",
   "bugs": {
