@@ -5,12 +5,12 @@ payu-node is a simple wrapper to use PayU APIs from within Node JS.
 
 ### Installation
 ```
-npm install payu-node
+npm install payu
 ```
 
 ### Usage
 ```javascript
-var PayU = require('payu-node');
+var PayU = require('payu');
 var payu = new PayU(merchant_id, salt, payu_url);
 ```
 ...where `merchant_id` and `salt` are unique to you.
